@@ -6,14 +6,18 @@ public class Pagamento {
     private Long id;
     private String meioPagamento;
     private Integer qtdParcela;
+    private Double valorAcrescimo;
+    private Double valorDesconto;
     private Double valorTotal;
 
     public Pagamento() { }
 
-    public Pagamento(Long id, String meioPagamento, Integer qtdParcela, Double valorTotal) {
+    public Pagamento(Long id, String meioPagamento, Integer qtdParcela, Double valorAcrescimo, Double valorDesconto, Double valorTotal) {
         this.id = id;
         this.meioPagamento = meioPagamento;
         this.qtdParcela = qtdParcela;
+        this.valorAcrescimo = valorAcrescimo;
+        this.valorDesconto = valorDesconto;
         this.valorTotal = valorTotal;
     }
 
@@ -36,13 +40,24 @@ public class Pagamento {
     public void setQtdParcela(Integer qtdParcela) {
         this.qtdParcela = qtdParcela;
     }
+    public Double getValorAcrescimo() {
+        return valorAcrescimo;
+    }
+    public void setValorAcrescimo(Double valorAcrescimo) {
+        this.valorAcrescimo = valorAcrescimo;
+    }
+    public Double getValorDesconto() {
+        return valorDesconto;
+    }
+    public void setValorDesconto(Double valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
     public Double getValorTotal() {
         return valorTotal;
     }
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,7 +65,6 @@ public class Pagamento {
         Pagamento pagamento = (Pagamento) o;
         return id.equals(pagamento.id);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id);

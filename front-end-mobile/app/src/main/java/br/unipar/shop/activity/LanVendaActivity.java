@@ -125,6 +125,7 @@ public class LanVendaActivity extends AppCompatActivity {
                     mostrarParcelas();
                 } else if (i == rbAprazo.getId()) {
                     spParcelas.setEnabled(true);
+                    mudarMeioDePagamento("À Prazo");
                 }
             }
         });
@@ -156,7 +157,7 @@ public class LanVendaActivity extends AppCompatActivity {
         carregarAutoCompleteTextViewItem();
         spParcelas.setEnabled(false);
         carregarParcelas();
-        mudarMeioDePagamento("A vista");
+        mudarMeioDePagamento("À vista");
     }
     private void carregarSpinnerCliente() {
         List<ClienteDTO> clientesDTO = clienteControlador.getListaClientes();

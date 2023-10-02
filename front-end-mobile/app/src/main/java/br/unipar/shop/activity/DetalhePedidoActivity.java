@@ -17,6 +17,12 @@ import br.unipar.shop.entidade.ItemPedido;
 public class DetalhePedidoActivity extends AppCompatActivity {
 
     private TextView tvListaItens;
+    private TextView tvCodigo;
+    private TextView tvCliente;
+    private TextView tvQtdItem;
+    private TextView tvValorTotal;
+    private TextView tvFormaPagamento;
+    private TextView tvParcelas;
     public Long pedidoId;
     private final PedidoControlador pedidoControlador = new PedidoControlador();
 
@@ -26,6 +32,12 @@ public class DetalhePedidoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe_pedido);
 
         tvListaItens = findViewById(R.id.tvListaItens);
+        tvCodigo = findViewById(R.id.tvCodigo);
+        tvCliente = findViewById(R.id.tvCliente);
+        tvQtdItem = findViewById(R.id.tvQtdItem);
+        tvValorTotal = findViewById(R.id.tvValorTotal);
+        tvFormaPagamento = findViewById(R.id.tvFormaPagamento);
+        tvParcelas = findViewById(R.id.tvParcelas);
 
         Intent intent = getIntent();
         pedidoId = new Long(intent.getSerializableExtra("pedidoId").toString());
@@ -34,10 +46,24 @@ public class DetalhePedidoActivity extends AppCompatActivity {
     }
     private void carregarPedido() {
         PedidoDTO pedidoDTO = pedidoControlador.getPedido(pedidoId);
-        String itens = "";
+        String parcelas = "";
+        String itens = "Itens do Pedido: \n";
+        tvCodigo.setText("código: " + pedidoDTO.getId().toString());
+        tvCliente.setText("cliente: " + pedidoDTO.getCliente().getNome());
+        tvQtdItem.setText("quantiddade de item: " + pedidoDTO.getQuantidadeDeItem());
+        tvValorTotal.setText("valor total: " + pedidoDTO.getValorTotal().toString());
+        tvFormaPagamento.setText("forma de pagamento: " + pedidoDTO.getPagamento().getMeioPagamento());
+        for (int i = 0; i < pedidoDTO.getPagamento().getQtdParcela(); i++) {
+            parcelas += "   " + (i+1) + "º - parcela R$ " + pedidoDTO.getPagamento().getValorPorParcela() + "\n";
+        }
         for (ItemPedidoDTO item : pedidoDTO.getItens()) {
-            itens += item.getDescricao();
+            itens += " código: " + item.getId() +
+                    "\n   Descrição: " + item.getDescricao() +
+                    "\n   Quantidade: " + item.getQuantidade() +
+                    "\n   Valor unitário: " + item.getPrecoUnit() +
+                    "\n   Valor total: " + item.getTotal() + "\n";
         }
         tvListaItens.setText(itens);
+        tvParcelas.setText(parcelas);
     }
 }
